@@ -1,37 +1,17 @@
-import { useEffect, useState } from 'react'
-
-interface Brewery {
-  id: string
-  name: string
-  country: string
-  brewery_type: string
-}
+import { useEffect } from 'react'
+import useBreweryApi from '../../../api/breweryApi/hooks/useBreweryApi'
 
 const useBreweryTable = () => {
-  const [breweries, setBreweries] = useState<Brewery[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
+  const { breweries, error, fetchBreweriesStatus, initFetchBreweries } =
+    useBreweryApi()
 
   useEffect(() => {
     const fetchBreweries = async () => {
-      try {
-        const response = await fetch(
-          'https://api.openbrewerydb.org/v1/breweries?per_page=200'
-        )
-        if (!response.ok) {
-          throw new Error('Failed to fetch brewery data')
-        }
-        const data = await response.json()
-        setBreweries(data)
-      } catch (err: any) {
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
+      initFetchBreweries()
     }
 
     fetchBreweries()
-  }, [])
+  }, [initFetchBreweries])
 
   const columns = [
     { header: 'Name', accessor: 'name' },
@@ -41,7 +21,7 @@ const useBreweryTable = () => {
 
   return {
     breweries,
-    loading,
+    fetchBreweriesStatus,
     error,
     columns,
   }

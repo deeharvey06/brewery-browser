@@ -5,13 +5,13 @@ import Table from '../common/Table/Table'
 import useBreweryTable from './hooks/useBreweryTable'
 
 const BreweryTable: FC = () => {
-  const { breweries, loading, error, columns } = useBreweryTable()
+  const { breweries, fetchBreweriesStatus, error, columns } = useBreweryTable()
 
-  if (loading) {
+  if (fetchBreweriesStatus === 'PENDING') {
     return <p>Loading...</p>
   }
 
-  if (error) {
+  if (fetchBreweriesStatus === 'ERROR') {
     return <p>Error: {error}</p>
   }
 
