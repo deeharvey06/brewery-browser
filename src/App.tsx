@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import BreweryTable from './components/BreweryTable/BreweryTable'
 
 function App() {
   return (
     <div className='App'>
-      <h1>Welcome to React</h1>
+      <BreweryTable />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
