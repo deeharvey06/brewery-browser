@@ -1,6 +1,10 @@
 import { FC } from 'react'
-import styles from './Table.module.scss'
+
+import PaginationFooter from './components/PaginationFooter'
+import Dropdown from '../Dropdown/'
+
 import useTable from './hooks/useTable'
+import styles from './Table.module.scss'
 
 interface TableProps {
   data: Array<Record<string, any>>
@@ -19,22 +23,38 @@ const Table: FC<TableProps> = ({
   sortOrder = 'asc',
   onRowClick,
 }) => {
-  const { groupAndSortData } = useTable()
+  const {
+    selectedValue,
+    paginatedData,
+    uniqueBreweryTypes,
+    currentPage,
+    totalPages,
+    handleDropdownChange,
+    handlePreviousPage,
+    handleNextPage,
+  } = useTable(data, groupBy, sortBy, sortOrder)
 
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          {columns.map((column) => (
-            <th key={column.accessor} className={styles.header}>
-              {column.header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {groupAndSortData(data, groupBy, sortBy, sortOrder).map(
-          (row, rowIndex) => (
+    <div>
+      <Dropdown
+        options={uniqueBreweryTypes}
+        placeholder='Select an type'
+        onChange={handleDropdownChange}
+        value={selectedValue}
+      />
+
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th key={column.accessor} className={styles.header}>
+                {column.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {paginatedData.map((row, rowIndex) => (
             <tr
               key={rowIndex}
               className={styles.row}
@@ -46,10 +66,16 @@ const Table: FC<TableProps> = ({
                 </td>
               ))}
             </tr>
-          )
-        )}
-      </tbody>
-    </table>
+          ))}
+        </tbody>
+      </table>
+      <PaginationFooter
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPrevious={handlePreviousPage}
+        onNext={handleNextPage}
+      />
+    </div>
   )
 }
 

@@ -1,12 +1,12 @@
 // Helper function to sort data
-export const sortData = (a: any, b: any, key: string, sortOrder: string) => {
+const sortData = (a: any, b: any, key: string, sortOrder: string) => {
   if (a[key] < b[key]) return sortOrder === 'asc' ? -1 : 1
   if (a[key] > b[key]) return sortOrder === 'asc' ? 1 : -1
   return 0
 }
 
 // Process data: group and sort
-export const groupAndSort = (
+const groupAndSort = (
   data: Array<Record<string, any>>,
   groupBy: string,
   sortBy: string,
@@ -23,3 +23,5 @@ export const groupAndSort = (
   })
   return processedData
 }
+
+export default groupAndSort
