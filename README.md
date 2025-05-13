@@ -1,3 +1,26 @@
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/brewery-browser.git
+   cd brewery-browser
+
+Install dependencies:
+npm install
+
+Available Scripts
+In the project directory, you can run:
+
+npm start
+Runs the app in development mode.
+Open http://localhost:3000 to view it in the browser.
+
+The page will reload if you make edits.
+You will also see any lint errors in the console.
+
+npm test
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
