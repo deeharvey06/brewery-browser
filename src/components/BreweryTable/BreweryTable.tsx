@@ -15,7 +15,15 @@ const BreweryTable: FC = () => {
     return <p>Error: {error}</p>
   }
 
-  return <Table data={breweries} columns={columns} />
+  return (
+    <Table
+      data={breweries}
+      columns={columns}
+      groupBy='brewery_type'
+      sortBy='name'
+      sortOrder='asc'
+    />
+  )
 }
 
 export default BreweryTable
